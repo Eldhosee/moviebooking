@@ -100,15 +100,14 @@ def theater(request,id):
 
    
 
-    if request.session.get('user'):
+    
     
         return render(request,"movies/theater.html",{
             "dates":date,
             "id":id
             
         })
-    else:
-        return redirect('login')
+    
 
 @login_required(login_url='login')
 def showtime(request):
