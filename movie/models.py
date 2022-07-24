@@ -3,6 +3,7 @@ from random import choices
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from PIL import ImageTk, Image
+from tkinter import CASCADE
 # Create your models here.
 
 class User(AbstractUser):
