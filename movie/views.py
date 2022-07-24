@@ -41,7 +41,7 @@ def login(request):
             request.session['user']=a.id
             request.session['email']=a.email
             print(request.session['email'])
-            return HttpResponseRedirect(reverse("homepage"))
+            return redirect("homepage")
             
         else:
             
