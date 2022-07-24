@@ -1,0 +1,23 @@
+
+.b1{
+    margin-left: 35%;
+
+}
+form{
+    display:inline;
+  }
+  
+
+.date{
+    display:inline-flexbox;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    margin: 10px;
+    border: 1px solid red;
+}
+
+#time{
+    display:inline-flexbox;
+    margin: 10px;
+}

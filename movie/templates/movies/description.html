@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% comment %} <link  href={% static 'movies/description.css' %} rel="stylesheet"> {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+    crossorigin="anonymous" />
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+    crossorigin="anonymous" />
+
+
+
+    <link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+rel="stylesheet"
+/>
+ 
+  <!-- MDB -->
+<script
+type="text/javascript"
+src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
+></script>
+</head>
+<body >
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+
+    @media (max-width: 991px) {
+      
+      .iframe-container iframe{
+        
+        width: 100%;
+        height: 100%;
+}
+}
+
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    
+    body{
+      font-family: Roboto, sans-serif;
+    }
+    
+    .image{
+      height: 100vh;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .image img{
+      height: 100vh;
+      width: 100vw;
+      z-index: -1;
+      object-fit: cover;
+      filter: saturate(140%);
+      position: fixed;
+    }
+    
+    .image .overlay{
+      z-index: 1;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      background: linear-gradient(transparent,rgba(19,21,21,0.2), rgba(19,21,21,0.4),rgba(19,21,21,0.6), rgba(19, 21, 21, 0.8),rgba(19, 21, 21, 0.9),rgba(19, 21, 21, 0.980), rgba(19,21,21, 01));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      flex-grow: 1;
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+    
+    .image .overlay h1{
+      font-size: 15vmin;
+      width: 60%;
+      color: rgba(255,250,251, 0.9);
+      padding-bottom: 30px;
+      font-style: italic;
+    }
+    
+    .image .overlay h4{
+      font-size: 1em;
+      margin-bottom: 50px;
+      color: rgba(255,250,251, 0.6);
+      font-style: italic;
+    }
+    
+    .afterImage{
+      height: auto;
+      min-height: 100vh;
+      background: #131515;
+      width: 100%;
+      display: flex;
+    }
+    
+    .afterImage .left{
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      flex: 2;
+      padding: 50px;
+      padding-top: 150px;
+    }
+    
+    .afterImage .left h3{
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: rgba(255,250,251, 0.9);
+      font-weight: 200;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .afterImage .left p{
+      font-size: 1em;
+      margin-bottom: 20px;
+      color: rgba(255,250,251, 0.6);
+    }
+    
+    .afterImage .left p:first-letter{
+      color: #339989;
+      font-size: 1.2em;
+    }
+    .btn{
+        padding:10px;
+    
+    }
+    .afterImage .right{
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 50px;
+      padding-top: 150px;
+      background: rgba(29,32,32,0.4);
+      margin: 40px;
+      margin-top: 100px;
+      border-radius: 10px/10px;
+    }
+   
+    
+    @media(max-width: 800px){
+      .afterImage{
+        flex-direction: column
+      }
+    }
+  </style>
+  <body >
+    {%include 'movies/navbar.html'%}
+    {% if movie_details %}
+    <div class="main">
+        <div class="image">
+            <img src="/media/{{movie_details.image}}" />
+            <div class="overlay">
+                <h1>{{movie_details.movie_name}}</h1>
+                
+            </div>
+        </div>
+        
+        <div class="afterImage">
+            <div class="left">
+                <a href='/theater/{{movie_details.id}}'><button type="button" class="btn btn-danger btn-rounded">Book Now</button></a>
+                <br>
+                <h3>Description</h3>
+                <p>{{movie_details.description}}</p>
+            </div>
+            <div class="iframe-container">
+                <iframe width="560" height="315" src="{{movie_details.trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            </div>
+    </iv>
+    {% endif %}
+    {%include 'movies/footer.html'%}
+    </body>
+  </html>

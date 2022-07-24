@@ -1,0 +1,50 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+{% block link %}
+
+<link  href={% static 'movies/login_2.css' %} rel="stylesheet">
+{% endblock link %}
+{% block content %}
+    
+    
+ 
+
+   <!-- login card -->
+   
+   <div class="container">
+    <div class="row">
+   <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 mx-auto">
+    
+<!-- Default form login -->
+<div class="alert alert-danger" role="alert">
+  {{message}}
+</div>
+<form method ='post' class="text-center border border-light  p-5" action="{%url 'login'%}">
+  {% csrf_token %}
+  <p class="h4 mb-4">Sign in</p>
+
+  <!-- Email -->
+  <input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="username" name="username">
+
+  <!-- Password -->
+  <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" name="password">
+
+ 
+
+  <!-- Sign in button -->
+  <button class="button-71" type="submit">LOGIN</button>
+
+  <!-- Register -->
+  <p>Not a member?
+      <a href="{%url 'register'%}">Register</a>
+  </p>
+
+  
+</form>
+<!-- Default form login -->
+
+</div>
+</div>
+</div>
+{% endblock content %}
+

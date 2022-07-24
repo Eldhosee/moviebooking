@@ -1,0 +1,53 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+{% block link %}
+
+<link  href={% static 'movies/register..css' %} rel="stylesheet">
+{% endblock link %}
+{% block content %}
+    
+    
+ 
+
+   <!-- login card -->
+   
+   <div class="container">
+    <div class="row">
+   <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 mx-auto">
+    
+<!-- Default form login -->
+<div class="alert alert-danger" role="alert">
+  {{message}}
+</div>
+<form method='post' action="{%url 'register'%}" class="text-center border border-light  p-5" action="#!">
+  {% csrf_token %}
+  <p class="h4 mb-4">Register</p>
+
+  <!-- Email -->
+  <input type="text" class="form-control mb-4" placeholder="username" name="username">
+  <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail" name="email">
+
+  <!-- Password -->
+  <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" name="password">
+  {% comment %} confirm password {% endcomment %}
+  <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" name="confirmation">
+
+ 
+
+  <!-- Sign in button -->
+  <button class="button-71" role="submit">Register</button>
+
+  <!-- Register -->
+  <p>Already a member?
+      <a href="{%url 'login'%}">sign in</a>
+  </p>
+
+  
+</form>
+<!-- Default form login -->
+
+</div>
+</div>
+</div>
+{% endblock content %}
+

@@ -1,0 +1,72 @@
+html,
+body,
+.intro {
+  height: 100%;
+  position:relative;
+}
+/* .scroll{
+  overflow: scroll
+} */
+
+/* table td,
+table th {
+   height:150px;
+  overflow:auto;  
+  margin-top:20px;
+} */
+
+
+/* thead th,
+tbody th {
+  color: #fff;
+}
+
+tbody td {
+  font-weight: 500;
+  color: rgba(255,255,255,.65);
+}
+
+.card {
+  border-radius: .5rem;
+} */
+.scroll {
+
+  overflow-y: scroll;
+  
+  height: fit-content;
+  max-height: 66.4vh;
+  
+  margin-top: 22px;
+  
+  margin: 15px;
+  padding-bottom: 20px;
+  
+}
+table {
+    
+  min-width: max-content;
+  
+  border-collapse: separate;
+  border-spacing: 0px;    
+  
+}
+
+
+
+table th{
+  position: sticky; 
+  top: 0px;
+  
+  background-color: #133b5c;
+  
+  
+  text-align: center;
+  font-weight: normal;
+  
+  outline: 0.7px solid black;
+  border: 1.5px solid black;
+
+} 
+
+
+

@@ -1,0 +1,61 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+{% block link %}
+
+<link  href={% static 'movies/history.css' %} rel="stylesheet">
+{% endblock link %}
+{% block content %}
+<body>
+  {%include 'movies/navbar.html'%}
+    <section class="intro">
+        <div class="bg-image h-100" style="background-image:url('https://image.shutterstock.com/z/stock-vector-movie-cinema-premiere-poster-design-vector-template-banner-for-show-cinema-with-seats-popcorn-1136408039.jpg') ;">
+          <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0,0,0,.25);">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-12">
+                  <div class="card bg-dark shadow-2-strong">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <div class="scroll">
+                        <table class="table table-dark ">
+                          <thead>
+                            <tr>
+                              <th scope="col">MOVIE NAME</th>
+                              <th scope="col">THEATER</th>
+                              <th scope="col">DATE</th>
+                              <th scope="col">TIME</th>
+                              <th scope="col">SEATS</th>
+                              <th scope="col">AMOUNT</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for i in history %}
+                            <tr>
+                              
+                              <td scope="row">{{i.movie}}</td>
+                              <td>{{i.theater}}</td>
+                              <td>{{i.date}}</td>
+                              <td>{{i.time}}</td>
+                              <td>{{i.all_seat}}</td>
+
+                              <td>{{i.price}}</td>
+                            </tr>
+                            {% endfor %}
+                            
+                          </tbody>
+                        </table>
+                        <div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {%include 'movies/footer.html'%}
+</body>
+</html>
+{%endblock%}

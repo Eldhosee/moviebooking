@@ -1,0 +1,208 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+{% block link %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link  href={% static 'movies/seatselect.css' %} rel="stylesheet">
+{% endblock link %}
+{% block content %}
+  <body onload="onLoaderFunc({{ booked_seats|safe }})" style="background: #cb2d3e;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  "  >
+  {%include 'movies/navbar.html'%}
+  <div class="heading">
+    {% if movie_name %}
+    <h1>{{movie_name}}</h1>
+      {% endif %}
+    <h2>{{theater}}</h2>
+    <h2>{{date}}</h2>
+    <h2>{{time}}</h2>
+    <div>
+    
+     <div class="card w-50">
+      <div class="card-body "> 
+  
+      
+    
+    <div class="seatStructure">
+    <center>
+      
+    <table id="seatsBlock">
+     <p id="notification"></p>
+      <tr>
+        <td colspan="14"><div class="screen">SCREEN</div></td>
+        <td rowspan="20">
+          <div class="smallBox greenBox">Selected Seat</div> <br/>
+          <div class="smallBox redBox">Reserved Seat</div><br/>
+          <div class="smallBox emptyBox">Empty Seat</div><br/>
+        </td>
+        
+        <br/>
+      </tr>
+      
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td></td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+    </tr>
+      
+    <tr>
+        <td>A</td>
+        <td><input type="checkbox" class="seats" id="A1"  value="A1"></td>
+        <td><input type="checkbox" class="seats" id="A2" value="A2"></td>
+        <td><input type="checkbox" class="seats" id="A3" value="A3"></td>
+        <td><input type="checkbox" class="seats" id="A4" value="A4"></td>
+        <td><input type="checkbox" class="seats" id="A5" value="A5"></td>
+        <td class="seatGap"></td>
+        <td><input type="checkbox" class="seats" id="A6" value="A6"></td>
+        <td><input type="checkbox" class="seats" id="A7" value="A7"></td>
+        <td><input type="checkbox" class="seats" id="A8" value="A8"></td>
+        <td><input type="checkbox" class="seats" id="A9" value="A9"></td>
+        <td><input type="checkbox" class="seats" id="A10" value="A10"></td>
+        <td><input type="checkbox" class="seats" id="A11" value="A11"></td>
+        <td><input type="checkbox" class="seats" id="A12" value="A12"></td>
+      </tr>
+      
+      <tr>
+        <td>B</td>
+        <td><input type="checkbox" class="seats" id="B1" value="B1"></td>
+        <td><input type="checkbox" class="seats" id="B2" value="B2"></td>
+        <td><input type="checkbox" class="seats" id="B3" value="B3"></td>
+        <td><input type="checkbox" class="seats" id="B4" value="B4"></td>
+        <td><input type="checkbox" class="seats" id="B5" value="B5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" id="B6" value="B6"></td>
+        <td><input type="checkbox" class="seats" id="B7" value="B7"></td>
+        <td><input type="checkbox" class="seats" id="B8" value="B8"></td>
+        <td><input type="checkbox" class="seats" id="B9" value="B9"></td>
+        <td><input type="checkbox" class="seats" id="B10" value="B10"></td>
+        <td><input type="checkbox" class="seats" id="B11" value="B11"></td>
+        <td><input type="checkbox" class="seats" id="B12" value="B12"></td>
+      </tr>
+      
+      <tr>
+        <td>C</td>
+        <td><input type="checkbox" class="seats" id="C1" value="C1"></td>
+        <td><input type="checkbox" class="seats" id="C2" value="C2"></td>
+        <td><input type="checkbox" class="seats" id="C3" value="C3"></td>
+        <td><input type="checkbox" class="seats" id="C4" value="C4"></td>
+        <td><input type="checkbox" class="seats" id="C5" value="C5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" id="C6" value="C6"></td>
+        <td><input type="checkbox" class="seats" id="C7" value="C7"></td>
+        <td><input type="checkbox" class="seats" id="C8" value="C8"></td>
+        <td><input type="checkbox" class="seats" id="C9" value="C9"></td>
+        <td><input type="checkbox" class="seats" id="C10" value="C10"></td>
+        <td><input type="checkbox" class="seats" id="C11" value="C11"></td>
+        <td><input type="checkbox" class="seats" id="C12" value="C12"></td>
+    </tr>
+      
+    <tr>
+        <td>D</td>
+        <td><input type="checkbox" class="seats" id="D1" value="D1"></td>
+        <td><input type="checkbox" class="seats" id="D2" value="D2"></td>
+        <td><input type="checkbox" class="seats" id="D3" value="D3"></td>
+        <td><input type="checkbox" class="seats" id="D4" value="D4"></td>
+        <td><input type="checkbox" class="seats" id="D5" value="D5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" id="D6" value="D6"></td>
+        <td><input type="checkbox" class="seats" id="D7" value="D7"></td>
+        <td><input type="checkbox" class="seats" id="D8" value="D8"></td>
+        <td><input type="checkbox" class="seats" id="D9" value="D9"></td>
+        <td><input type="checkbox" class="seats" id="D10"value="D10"></td>
+        <td><input type="checkbox" class="seats" id="D11" value="D11"></td>
+        <td><input type="checkbox" class="seats" id="D12" value="D12"></td>
+    </tr>
+      
+    <tr>
+        <td>E</td>
+        <td><input type="checkbox" class="seats" id="E1" value="E1"></td>
+        <td><input type="checkbox" class="seats" id="E2" value="E2"></td>
+        <td><input type="checkbox" class="seats" id="E3" value="E3"></td>
+        <td><input type="checkbox" class="seats" id="E4" value="E4"></td>
+        <td><input type="checkbox" class="seats" id="E5" value="E5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" id="E6" value="E6"></td>
+        <td><input type="checkbox" class="seats" id="E7" value="E7"></td>
+        <td><input type="checkbox" class="seats" id="E8" value="E8"></td>
+        <td><input type="checkbox" class="seats" id="E9" value="E9"></td>
+        <td><input type="checkbox" class="seats" id="E10" value="E10"></td>
+        <td><input type="checkbox" class="seats" id="E11" value="E11"></td>
+        <td><input type="checkbox" class="seats" id="E12" value="E12"></td>
+    </tr>
+      
+    <tr class="seatVGap"></tr>
+      
+    
+      
+      
+    </table>
+      
+    <br/><button class="btn btn-success" onclick="updateTextArea()">Confirm Selection</button>
+    </center>
+    </div>
+          
+    <br/><br/>
+    
+    <div class="displayerBoxes">
+    <center>
+      
+      <table class="Displaytable">
+      <tr>
+        
+        
+        <th>Seats</th>
+      </tr>
+      <tr>
+       
+        
+        <td><textarea id="seatsDisplay"></textarea></td>
+      </tr>
+    </table>
+    </center>
+    </div>
+    <a href=''>
+    <button type="hidden" class="btn btn-secondary">Home</button>
+    </a>
+    <form method='post' action="{%url 'seatselected'%}">
+      {% csrf_token %}
+        <input type="hidden" value="{{movie_name}}" name="movie_name">
+        <input type="hidden" id="input1" value="{{theater}}"name="theater">
+        <input type="hidden" id="input2" value="{{date}}"name="date">
+        <input type="hidden" id="input3" value="{{time}}"name="time">
+        <input type="hidden" id="input" name="seatselected">
+        
+        <button type="hidden" id="paybutton" class="btn btn-danger">pay now</button>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+     <script>
+      var a={{ booked_seats|safe }}
+      
+      for(var i = 0; i < a.length; i++){
+              console.log(a[i])
+              var b=a[i]
+              document.getElementById(b).disabled = true;
+              
+          };
+      
+
+    </script> 
+     
+    <script src={% static 'movies/seatselect.js' %}></script>
+    {%include 'movies/footer.html'%}
+  </body>
+  {% endblock content %}

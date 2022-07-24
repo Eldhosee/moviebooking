@@ -1,0 +1,75 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+{% block link %}
+
+<link  href={% static 'movies/theater.css' %} rel="stylesheet">
+{% endblock link %}
+{% block content %}
+
+<body style="background: #cb2d3e;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+" >
+{%include 'movies/navbar.html'%}
+<div
+  class="bg-image d-flex justify-content-center align-items-center"
+  style="
+         background-image: url('https://images.pexels.com/photos/109669/pexels-photo-109669.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+         height: 40vh;
+         "
+  >
+</div>
+<div class="b1">
+    <h1>Please select  date</h1>
+            {% for date in dates %}
+            
+            <form method="post" action="{%url 'showtime'%}"  class="d-inline-block">
+                {% csrf_token %}
+            
+            <input type="hidden" value="{{id}}" name="id">
+            <input type="hidden" value="{{date.id}}" name="date_id">
+            <input type="hidden" value="{{date}}" name="date">
+            <button type="submit" class="date">{{date.date}}</button>
+        </form>
+            {% endfor %} 
+    
+</div>
+{% for i in show_time %}
+    
+    <h4>{{i.theater}}</h4>
+    <div class="b2">
+        <form method='post' action='{%url 'seatselect'%}'>
+            {% csrf_token %}
+            <input type="hidden" value="{{id}}" name="id">
+            <input type="hidden" value="{{i.theater}}" name="theater">
+            <input type="hidden" value="{{show_date.date}}" name="dates">
+        {% if i.show_time1 %}
+        
+        
+        <button id="time" type="submit" class="btn btn-light btn-rounded" value="{{i.show_time1}}"  name="time">{{i.show_time1}}</button>
+       
+        {% endif %}
+        {% if i.show_time2 %}
+        <button id="time" type="submit" class="btn btn-light btn-rounded" value="{{i.show_time2}}"  name="time">{{i.show_time2}}</button>
+        {% endif %}
+        {% if i.show_time3 %}
+        <button id="time" type="submit" class="btn btn-light btn-rounded" value="{{i.show_time3}}"  name="time">{{i.show_time3}}</button>
+        {% endif %}
+        {% if i.show_time4 %}
+        <button id="time" type="submit" class="btn btn-light btn-rounded" value="{{i.show_time4}}"  name="time">{{i.show_time4}}</button>
+        {% endif %}
+        {% if i.show_time5 %}
+        <button id="time" type="submit" class="btn btn-light btn-rounded" value="{{i.show_time5}}"  name="time">{{i.show_time5}}</button>
+        {% endif %}
+        {% if i.show_time6 %}
+        <button id="time" type="submit" class="btn btn-light btn-rounded" value="{{i.show_time6}}"  name="time">{{i.show_time6}}</button>
+        {% endif %}
+
+    </form>
+    </div>
+{% endfor %} 
+
+
+</body>
+</html>
+{% endblock content %}
