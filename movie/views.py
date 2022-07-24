@@ -99,14 +99,17 @@ def theater(request,id):
         date=dates.get_dates(movies=movies)
 
    
-
-    
+    user=request.user
+    user=User.objects.filter(username=user)
+    if user:
     
         return render(request,"movies/theater.html",{
             "dates":date,
             "id":id
             
         })
+    else:
+        return redirect('homepage')
     
 
 @login_required(login_url='login')

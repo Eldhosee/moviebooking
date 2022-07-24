@@ -80,7 +80,7 @@
         >
           
           <li>
-            {% if  request.user %}
+            {% if  request.session.user %}
             <a class="dropdown-item" href="{%url 'history'%}">Booking History</a>
             {%endif%}
           </li>
