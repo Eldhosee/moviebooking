@@ -99,7 +99,7 @@ def theater(request,id):
         date=dates.get_dates(movies=movies)
 
    
-    if request.session.user:
+    if request.session.get('user'):
     
     
         return render(request,"movies/theater.html",{
