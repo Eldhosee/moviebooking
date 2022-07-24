@@ -41,7 +41,7 @@ def login(request):
             request.session['user']=a.id
             request.session['email']=a.email
             print(request.session['email'])
-            return redirect("homepage")
+            return HttpResponseRedirect(reverse("homepage"))
             
         else:
             
@@ -99,18 +99,14 @@ def theater(request,id):
         date=dates.get_dates(movies=movies)
 
    
-    if request.session.get('user'):
     
     
-        return render(request,"movies/theater.html",{
-            "dates":date,
-            "id":id
-            
-        })
-    else:
-        return redirect('login')
-
-
+    
+    return render(request,"movies/theater.html",{
+        "dates":date,
+        "id":id
+        
+    })
 
 @login_required(login_url='login')
 def showtime(request):
