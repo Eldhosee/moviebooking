@@ -99,7 +99,7 @@ def theater(request,id):
         date=dates.get_dates(movies=movies)
 
    
-    
+
     
     
     return render(request,"movies/theater.html",{
