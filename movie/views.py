@@ -99,9 +99,8 @@ def theater(request,id):
         date=dates.get_dates(movies=movies)
 
    
-    user=request.user
-    user=User.objects.filter(username=user)
-    if user:
+
+    if request.session.get('user'):
     
         return render(request,"movies/theater.html",{
             "dates":date,
@@ -109,8 +108,7 @@ def theater(request,id):
             
         })
     else:
-        return redirect('homepage')
-    
+        return redirect('login')
 
 @login_required(login_url='login')
 def showtime(request):
@@ -187,7 +185,7 @@ def seatselect(request):
 
     else:
         return redirect('homepage')
-@login_required(login_url='login')
+
 def seatselected(request):
     if request.method=='POST':
         user=request.user
@@ -237,7 +235,7 @@ def seatselected(request):
         return redirect('homepage')
     return redirect('homepage')
 
-@login_required(login_url='login')
+
 def history(request):
     user=request.user
     try: 
