@@ -173,7 +173,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
     {% if movie_details %}
     <div class="main">
         <div class="image">
-            <img src="/media/{{movie_details.image}}" />
+            <img src="{{movie_details.image.url}}" />
             <div class="overlay">
                 <h1>{{movie_details.movie_name}}</h1>
                 
