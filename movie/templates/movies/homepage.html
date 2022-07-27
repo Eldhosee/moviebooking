@@ -46,7 +46,7 @@ crossorigin="anonymous" />
     <!-- Background image -->
     
     <div id="intro" class="p-5 text-center bg-image shadow-1-strong"
-      style="background-image: url('/media/{{random.image}}');">
+      style="background-image: url('{{random.image.url}}');">
        <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);"> 
         <div class="d-flex justify-content-lg-start align-items-end h-100">
           <div class="text-white px-4">
@@ -82,7 +82,7 @@ crossorigin="anonymous" />
                       <div class="item mb-4">
                           <div class="card border-0 shadow" >
                             <a href= 'description/{{i.id}}' > 
-                              <img src="/media/{{i.image}}" alt="" class="card-img-top" href= 'description/{{i.id}}'>
+                              <img src="{{i.image.url}}" alt="" class="card-img-top" href= 'description/{{i.id}}'>
                             </a>
                           </div>
                       </div>
@@ -140,7 +140,7 @@ crossorigin="anonymous" />
           <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light "
             data-mdb-ripple-color="light" >
             
-            <img src="/media/{{i.image}}"
+            <img src="{{i.image.url}}"
               class="w-100" class="img-responsive"/>
             
             <a href= 'description/{{i.id}}' > 
