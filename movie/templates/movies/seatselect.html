@@ -2,10 +2,11 @@
 {% load static %}
 {% block link %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <link  href={% static 'movies/seatselect.css' %} rel="stylesheet">
 {% endblock link %}
 {% block content %}
-  <body onload="onLoaderFunc({{ booked_seats|safe }})" style="background: #cb2d3e;  /* fallback for old browsers */
+  <body  style="background: #cb2d3e;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   "  >
@@ -183,8 +184,11 @@
         <input type="hidden" id="input3" value="{{time}}"name="time">
         <input type="hidden" id="input" name="seatselected">
         
-        <button type="hidden" id="paybutton" class="btn btn-danger">pay now</button>
+        <button type="hidden" id="paybutton" class="btn btn-danger">Book Now</button>
     </form>
+    
+
+   
   </div>
 </div>
 </div>
@@ -203,6 +207,8 @@
     </script> 
      
     <script src={% static 'movies/seatselect.js' %}></script>
+   
+      <!-- new -->
     {%include 'movies/footer.html'%}
   </body>
   {% endblock content %}

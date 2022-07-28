@@ -12,7 +12,11 @@ urlpatterns = [
     path('seatselect',views.seatselect,name="seatselect"),
     path('seatselected',views.seatselected,name="seatselected"),
     path('history',views.history,name="history"),
-     path('logout',views.logout,name="logout"),
+    path('logout',views.logout,name="logout"),
+    path('config/', views.stripe_config),
+    path('create-checkout-session/', views.create_checkout_session), # new
+    path('success', views.success), # new
+    path('cancel', views.cancel),
 
 
 ]

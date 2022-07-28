@@ -2,6 +2,7 @@
 {% load static %}
 {% block link %}
 <link  href={% static 'movies/ticket.css' %} rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
 {% endblock link %}
 {% block content %}
 <body>
@@ -9,7 +10,24 @@
 	<!-- INSPO:  https://www.behance.net/gallery/69583099/Mobile-Flights-App-Concept -->
 <main class="ticket-system">
 	<div class="top">
-	<h1 class="title">Wait a second, your ticket is being printed</h1>
+	<h3 class="title">Wait a second, your ticket is being printed</h3>
+	{% if message %}
+				<div class="alert alert-danger" role="alert">
+					{{message}}
+				</div>
+	{% else %}
+	<div class="alert alert-success" role="alert">
+		Booked successfully
+	  </div>
+	 
+	  {% endif %}
+
+	  <section class="section">
+		<div class="container">
+		  <button class="btn btn-danger" id="submitBtn">Pay Now</button>
+		</div>
+	  </section>
+	  <br>
 	<div class="printer" />
 	</div>
 	<div class="receipts-wrapper">
@@ -59,8 +77,11 @@
 		  </div>
 	   </div>
 	</div>
+
  </main>
+
  {%include 'movies/footer.html'%}
+ <script src={% static 'movies/main.js' %}></script>
 </body>
 </html>
 {% endblock content %}

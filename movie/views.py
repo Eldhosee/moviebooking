@@ -7,9 +7,12 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 import stripe
+from django.conf import settings 
+from django.http.response import JsonResponse 
+from django.views.decorators.csrf import csrf_exempt 
 
 # This is your test secret API key.
-
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Create your views here.
 
@@ -201,7 +204,7 @@ def seatselected(request):
         theater=request.POST.get('theater')
         date=request.POST.get('date')
         movie_name=request.POST.get('movie_name')
-        movie_id=movie.objects.get(movie_name=movie_name)
+        # movie_id=movie.objects.get(movie_name=movie_name)
         seatselected=request.POST.get('seatselected')
         
         seats=seatselected.split(',')
@@ -213,7 +216,8 @@ def seatselected(request):
         if time is None:
             return redirect('homepage')
         if seatselected:
-           
+            
+            request.session['date']=date
             request.session['movie_name']=movie_name
             request.session['theater']=theater
             request.session['date']=date
@@ -222,15 +226,15 @@ def seatselected(request):
             request.session['price']=price
             
 
-            movie_booking=booking.objects.create(user=user,movie=movie_id,all_seat=seatselected,price=price,time=time,date=date,theater=theater)
-            movie_booking.save()
+            
             return render(request,"movies/ticket.html",{
                 "movie_name":movie_name,
                 "theater":theater,
                 "date":date,
                 "time":time,
                 "seatselected":seatselected,
-                "price":price
+                "price":price,
+                "message":"your booking is not confirmed"
             })
         return redirect('homepage')
     return redirect('homepage')
@@ -254,8 +258,135 @@ def logout(request):
     return redirect('login')
 
 
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
+
+    
+@csrf_exempt
+def create_checkout_session(request):
+    if request.method == 'GET':
+        price=request.session.get('price')
+        price*=100
+        movie_name=request.session.get('movie_name')
+        theater=request.session.get('theater')
+        print(price,movie_name,theater)
+        domain_url = 'https://moviebooking123.herokuapp.com/'
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        try:
+            # Create new Checkout Session for the order
+            # Other optional params include:
+            # [billing_address_collection] - to display billing address details on the page
+            # [customer] - if you have an existing Stripe Customer ID
+            # [payment_intent_data] - capture the payment later
+            # [customer_email] - prefill the email input in the form
+            # For full details see https://stripe.com/docs/api/checkout/sessions/create
+
+            # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+           
 
 
+            checkout_session = stripe.checkout.Session.create(
+                    line_items=[{
+                    'price_data': {
+                        'currency': 'inr',
+                        'product_data': {
+                        'name': movie_name,
+                        
+                        },
+                        'unit_amount': price,
+                    },
+                    'quantity': 1,
+                    }],
+                    mode='payment',
+                    success_url=domain_url+'success',
+                    cancel_url=domain_url+'cancel',
+                )
+           
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
 
 
+def success(request):
+    if request.method=='GET':
+            
+            user=request.user
+            try:
+            
+                user=User.objects.get(username=user)
+            except:
+                message="Invalid user"
+                return render(request,"movies/login_2.html",{
+                "error":message
+            })
+              
+            try: 
+                User.objects.get(username=user)
+                history=list(booking.objects.filter(user=user).reverse())
+                
+                return render(request,"movies/history.html",{
+                    "history":history
+                })
+            except:
+               
+
+           
+                    movie_name=request.session.get('movie_name')
+                    theater=request.session.get('theater')
+                    request.session.get('date')
+                    time=request.session.get('time')
+                    seatselected=request.session.get('seatselected')
+                    price=request.session.get('price')
+                    date=request.session.get('date')
+                    print(movie_name,user)
+                    movie_id=movie.objects.get(movie_name=movie_name)
+                    print(movie_id,movie_name)
+                    movie_booking=booking.objects.create(user=user,movie=movie_id,all_seat=seatselected,price=price,time=time,date=date,theater=theater)
+                    movie_booking.save()
+                    return render(request,"movies/ticket.html",{
+                        "movie_name":movie_name,
+                        "theater":theater,
+                        "date":date,
+                        "time":time,
+                        "seatselected":seatselected,
+                        "price":price,
+                        
+                    })
+
+
+def cancel(request):
+    if request.method=='GET':
+            
+            user=request.user
+            try:
+            
+                user=User.objects.get(username=user)
+            except:
+                message="Invalid user"
+                return render(request,"movies/login_2.html",{
+                "error":message
+            })
+
+           
+            movie_name=request.session.get('movie_name')
+            theater=request.session.get('theater')
+            request.session.get('date')
+            time=request.session.get('time')
+            seatselected=request.session.get('seatselected')
+            price=request.session.get('price')
+            date=request.session.get('date')
+        
+            return render(request,"movies/ticket.html",{
+                "movie_name":movie_name,
+                "theater":theater,
+                "date":date,
+                "time":time,
+                "seatselected":seatselected,
+                "price":price,
+                "message":"payment failed please try again"
+                
+            })
 
