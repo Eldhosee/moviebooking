@@ -2,40 +2,36 @@
 {% load static %}
 {% block link %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
 <link  href={% static 'movies/seatselect.css' %} rel="stylesheet">
 {% endblock link %}
 {% block content %}
-  <body  style="background: #cb2d3e;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  "  >
+  <body  style="background: linear-gradient(to bottom, #000066 0%, #3366ff 100%) ;">
   {%include 'movies/navbar.html'%}
   <div class="heading">
     {% if movie_name %}
-    <h1>{{movie_name}}</h1>
+    <h1 style="color:white;font-family: 'Graduate';">{{movie_name}}</h1>
       {% endif %}
-    <h2>{{theater}}</h2>
-    <h2>{{date}}</h2>
-    <h2>{{time}}</h2>
+    <h2 style="color:white;font-family: 'Graduate';">{{theater}}</h2>
+    <h2 style="color:white;font-family: 'Graduate';">{{date}}</h2>
+    <h2 style="color:white;font-family: 'Graduate';">{{time}}</h2>
     <div>
     
-     <div class="card w-50">
-      <div class="card-body "> 
+     
   
       
     
     <div class="seatStructure">
     <center>
       
-    <table id="seatsBlock">
+    <table id="seatsBlock" style="color:white;font-family: 'Graduate';">
      <p id="notification"></p>
       <tr>
-        <td colspan="14"><div class="screen">SCREEN</div></td>
+        <td colspan="14"><div class="screen" style="color:white;font-family: 'Graduate';">SCREEN</div></td>
         <td rowspan="20">
-          <div class="smallBox greenBox">Selected Seat</div> <br/>
-          <div class="smallBox redBox">Reserved Seat</div><br/>
-          <div class="smallBox emptyBox">Empty Seat</div><br/>
+          <div class="smallBox greenBox" style="color:white;font-family: 'Graduate';">Selected Seat</div> <br/>
+          <div class="smallBox redBox" style="color:white;font-family: 'Graduate';">Reserved Seat</div><br/>
+          <div class="smallBox emptyBox" style="color:white;font-family: 'Graduate';">Empty Seat</div><br/>
         </td>
         
         <br/>
@@ -58,7 +54,7 @@
         <td>12</td>
     </tr>
       
-    <tr>
+    <tr style="padding:10%">
         <td>A</td>
         <td><input type="checkbox" class="seats" id="A1"  value="A1"></td>
         <td><input type="checkbox" class="seats" id="A2" value="A2"></td>
@@ -159,11 +155,11 @@
     <div class="displayerBoxes">
     <center>
       
-      <table class="Displaytable">
+      <table class="Displaytable" style="background:white">
       <tr>
         
         
-        <th>Seats</th>
+        <th style="color:black">Seats</th>
       </tr>
       <tr>
        
@@ -173,9 +169,7 @@
     </table>
     </center>
     </div>
-    <a href=''>
-    <button type="hidden" class="btn btn-secondary">Home</button>
-    </a>
+   
     <form method='post' action="{%url 'seatselected'%}">
       {% csrf_token %}
         <input type="hidden" value="{{movie_name}}" name="movie_name">
@@ -185,14 +179,14 @@
         <input type="hidden" id="input" name="seatselected">
         
         <button type="hidden" id="paybutton" class="btn btn-danger">Book Now</button>
+        
     </form>
     
 
    
   </div>
 </div>
-</div>
-</div>
+
      <script>
       var a={{ booked_seats|safe }}
       
