@@ -3,13 +3,11 @@
 {% block link %}
 
 <link  href={% static 'movies/theater.css' %} rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
 {% endblock link %}
 {% block content %}
 
-<body style="background: #cb2d3e;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-" >
+<body style="background: linear-gradient(to bottom, #000066 0%, #3366ff 100%) ;" >
 {%include 'movies/navbar.html'%}
 <div
   class="bg-image d-flex justify-content-center align-items-center"
@@ -19,7 +17,7 @@ background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, F
          "
   >
 </div>
-<div class="b1">
+<div class="b1" style="color:white;font-family: 'Graduate';">
     <h1>Please select  date</h1>
             {% for date in dates %}
             
@@ -36,7 +34,7 @@ background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, F
 </div>
 {% for i in show_time %}
     
-    <h4>{{i.theater}}</h4>
+    <h4 style="color:white;font-family: 'Graduate';">{{i.theater}}</h4>
     <div class="b2">
         <form method='post' action='{%url 'seatselect'%}'>
             {% csrf_token %}

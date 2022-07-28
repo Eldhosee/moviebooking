@@ -159,7 +159,7 @@ def seatselect(request):
             already_booked=booking.get_movie(id,theater,date,time)
             for i in already_booked:
                 booked_seats.append(i.all_seat)
-            print(booked_seats)
+           
             
 
         except:
