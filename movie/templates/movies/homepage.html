@@ -38,27 +38,42 @@ crossorigin="anonymous" />
       }
     </style>
 
-    {%include 'movies/navbar.html'%}
+    {% comment %} {%include 'movies/navbar.html'%} {% endcomment %}
+
+    
     <!-- Navbar -->
     <!-- Navbar -->
    
 
     <!-- Background image -->
-    
-    <div id="intro" class="p-5 text-center bg-image shadow-1-strong"
-      style="background-image: url('{{random.image.url}}');">
-       <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);"> 
-        <div class="d-flex justify-content-lg-start align-items-end h-100">
-          <div class="text-white px-4">
-            
-				<h1 class="title is-1 has-text-white" style="width: 70%;">{{random.movie_name}}</h1>
+    <!-- Background image -->
+    {%include 'movies/navbar.html'%}
+    <div
+class="bg-image d-flex justify-content-center align-items-center"
+style="
+  background-image: url('{{random.image.url}}');
+  height: 90vh;
+"
+>
 
-            <!-- Time Counter -->
-            
-          </div>
-        </div>
-      </div>
+<div class="mask" style="background-color: rgba(0, 0, 0, 0.7);"> 
+  <div class="d-flex justify-content-lg-start align-items-center h-100">
+    <div class="text-white px-4">
+      
+
+  <h1 class="title is-1 has-text-white" style="width: 80%;">{{random.movie_name}}</h1>
+ 
+  <h3 class=" hero-title" >
+    For Unlimited <strong>Movies</strong>, TVs Shows, & More</h3>
+  <h5>  <strong style="color: aliceblue;"> moviebooking.com</strong></h5>
+      <!-- Time Counter -->
+  </div> 
     </div>
+    
+  </div>
+</div>
+<!-- Background image -->
+    
     <!-- Background image -->
   </header>
   <!--Main Navigation-->
