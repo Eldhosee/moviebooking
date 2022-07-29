@@ -169,14 +169,14 @@ def seatselect(request):
             
         seats=[i.split(',') for i in booked_seats]
         
-        print(seats)
+        
         a=[]
         for i in seats:
             a+=i
 
-        print(a)
+        
 
-
+        request.session["booked_seats"]=a
         print(id,name)
         return render(request,"movies/seatselect.html",{
             "date":date,
@@ -243,12 +243,14 @@ def seatselected(request):
                     time=request.session.get('time')
                     seatselected=request.session.get('seatselected')
                     date=request.session.get('date')
+                    a=request.session.get('booked_seats')
                     return render(request,"movies/seatselect.html",{
                         "date":date,
                         "theater":theater,
                         "time":time,
                         "movie_name":movie_name,
                         "booked_seats":seatselected,
+                        "booked_seats":a,
                         "error":"True",
         })
 
