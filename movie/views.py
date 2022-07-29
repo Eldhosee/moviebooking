@@ -208,6 +208,12 @@ def seatselected(request):
         seatselected=request.POST.get('seatselected')
         
         seats=seatselected.split(',')
+        request.session['date']=date
+        request.session['movie_name']=movie_name
+        request.session['theater']=theater
+        request.session['date']=date
+        request.session['time']=time
+        request.session['seatselected']=seatselected
         
         count=0
         for i in seats:
@@ -217,12 +223,7 @@ def seatselected(request):
             return redirect('homepage')
         if seatselected:
             
-            request.session['date']=date
-            request.session['movie_name']=movie_name
-            request.session['theater']=theater
-            request.session['date']=date
-            request.session['time']=time
-            request.session['seatselected']=seatselected
+           
             request.session['price']=price
             
 
@@ -234,9 +235,23 @@ def seatselected(request):
                 "time":time,
                 "seatselected":seatselected,
                 "price":price,
-                "message":"your booking is not confirmed"
+                "message":"please pay to confirm your booking "
             })
-        return redirect('homepage')
+        else:
+                    movie_name=request.session.get('movie_name')
+                    theater=request.session.get('theater')
+                    time=request.session.get('time')
+                    seatselected=request.session.get('seatselected')
+                    date=request.session.get('date')
+                    return render(request,"movies/seatselect.html",{
+                        "date":date,
+                        "theater":theater,
+                        "time":time,
+                        "movie_name":movie_name,
+                        "booked_seats":seatselected,
+                        "error":"True",
+        })
+
     return redirect('homepage')
 
 
@@ -313,24 +328,17 @@ def create_checkout_session(request):
 def success(request):
     if request.method=='GET':
             
-            user=request.user
-            try:
-            
-                user=User.objects.get(username=user)
-            except:
-                message="Invalid user"
-                return render(request,"movies/login_2.html",{
-                "error":message
-            })
-              
-            try: 
-                User.objects.get(username=user)
-                history=list(booking.objects.filter(user=user).reverse())
-                
-                return render(request,"movies/history.html",{
-                    "history":history
-                })
-            except:
+                    user=request.user
+                    try:
+                    
+                        user=User.objects.get(username=user)
+                    except:
+                        message="Invalid user"
+                        return render(request,"movies/login_2.html",{
+                        "error":message
+                    })
+                    
+          
                
 
            
@@ -353,6 +361,7 @@ def success(request):
                         "time":time,
                         "seatselected":seatselected,
                         "price":price,
+                        "history":"show history"
                         
                     })
 

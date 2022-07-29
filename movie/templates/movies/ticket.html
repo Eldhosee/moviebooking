@@ -21,12 +21,17 @@
 	  </div>
 	 
 	  {% endif %}
+	  {% if history %}
+	  <a class="btn btn-success btn-rounded me-3" href="{%url 'history'%}">View Booking </a>
 
+	  {% else %}
 	  <section class="section">
 		<div class="container">
 		  <button class="btn btn-danger" id="submitBtn">Pay Now</button>
 		</div>
 	  </section>
+
+	  {% endif %}
 	  <br>
 	<div class="printer" />
 	</div>

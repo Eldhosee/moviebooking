@@ -23,6 +23,11 @@
     
     <div class="seatStructure">
     <center>
+      {% if error %}
+      <div class="alert alert-danger" role="alert">
+        Please select seats and confirm ,before booking
+      </div>
+      {% endif %}
       
     <table id="seatsBlock" style="color:white;font-family: 'Graduate';">
      <p id="notification"></p>
