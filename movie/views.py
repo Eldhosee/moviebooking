@@ -166,7 +166,7 @@ def seatselect(request):
             print(True)
            
         
-            
+        print(booked_seats)   
         seats=[i.split(',') for i in booked_seats]
         
         
@@ -188,7 +188,7 @@ def seatselect(request):
 
     else:
         return redirect('homepage')
-
+@login_required(login_url='login')
 def seatselected(request):
     if request.method=='POST':
         user=request.user
@@ -215,6 +215,12 @@ def seatselected(request):
         request.session['time']=time
         request.session['seatselected']=seatselected
         
+        selected_seats=seatselected.split(',')
+        request.session['selected_seats']=selected_seats
+        
+        
+
+
         count=0
         for i in seats:
             count+=1
@@ -256,7 +262,7 @@ def seatselected(request):
 
     return redirect('homepage')
 
-
+@login_required(login_url='login')
 def history(request):
     user=request.user
     try: 
@@ -349,25 +355,67 @@ def success(request):
                     request.session.get('date')
                     time=request.session.get('time')
                     seatselected=request.session.get('seatselected')
+                    booked_seats=request.session.get('booked_seats')
+                    selected_seats_array=request.session.get('selected_seats')
                     price=request.session.get('price')
                     date=request.session.get('date')
-                    print(movie_name,user)
                     movie_id=movie.objects.get(movie_name=movie_name)
-                    print(movie_id,movie_name)
-                    movie_booking=booking.objects.create(user=user,movie=movie_id,all_seat=seatselected,price=price,time=time,date=date,theater=theater)
-                    movie_booking.save()
-                    return render(request,"movies/ticket.html",{
-                        "movie_name":movie_name,
-                        "theater":theater,
-                        "date":date,
-                        "time":time,
-                        "seatselected":seatselected,
-                        "price":price,
-                        "history":"show history"
+                    
+                    try:
+                        booked_seats=[]
+                        already_booked=booking.get_movie(movie_id,theater,date,time)
+                        for i in already_booked:
+                            booked_seats.append(i.all_seat)
                         
-                    })
+                        seats=[i.split(',') for i in booked_seats]
+                        a=[]
+                        for i in seats:
+                            a+=i
+                        print(a)
+                        
+
+                    except:
+                        pass
+
+                    flag=0
+                    for i in a:
+                        for j in selected_seats_array:
+                            print(i,j)
+                            if i==j:
+                                flag=1
+
+                    if flag==0:
+                        movie_booking=booking.objects.create(user=user,movie=movie_id,all_seat=seatselected,price=price,time=time,date=date,theater=theater)
+                        movie_booking.save()
+                        return render(request,"movies/ticket.html",{
+                            "movie_name":movie_name,
+                            "theater":theater,
+                            "date":date,
+                            "time":time,
+                            "seatselected":seatselected,
+                            "price":price,
+                            "history":"show history"
+                            
+                        })
+                    else:
+                        return render(request,"movies/ticket.html",{
+                            "movie_name":movie_name,
+                            "theater":theater,
+                            "date":date,
+                            "time":time,
+                            "seatselected":seatselected,
+                            "price":price,
+                            "history":"show history"
+                            
+                        })
 
 
+
+
+
+
+
+                    
 def cancel(request):
     if request.method=='GET':
             
