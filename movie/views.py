@@ -378,11 +378,14 @@ def success(request):
                         pass
 
                     flag=0
-                    for i in a:
-                        for j in selected_seats_array:
-                            print(i,j)
-                            if i==j:
-                                flag=1
+                    try:
+                        for i in a:
+                            for j in selected_seats_array:
+                                print(i,j)
+                                if i==j:
+                                    flag=1
+                    except:
+                        pass
 
                     if flag==0:
                         movie_booking=booking.objects.create(user=user,movie=movie_id,all_seat=seatselected,price=price,time=time,date=date,theater=theater)
