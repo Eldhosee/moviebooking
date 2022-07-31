@@ -44,6 +44,7 @@ def login(request):
             request.session['user']=a.id
             request.session['email']=a.email
             print(request.session['email'])
+           
             return HttpResponseRedirect(reverse("homepage"))
             
         else:
@@ -84,7 +85,6 @@ def register(request):
 
 
 
-
 def description(request,id):
     # print(id)
     movie_details=movie.get_movies(id)
@@ -92,7 +92,7 @@ def description(request,id):
     return render(request,"movies/description.html",{
         "movie_details":movie_details
     })
-
+@login_required(login_url='login')
 def theater(request,id):
    
     
@@ -153,6 +153,7 @@ def seatselect(request):
         movies=movie.get_movies(id)
         name=movies.movie_name
         booked_seats=[]
+        request.session['movie_id']=id
         already_booked=booking.get_movie(id,theater,date,time)
       
         try:
@@ -340,32 +341,47 @@ def success(request):
                         "error":message
                     })
                     
-          
-               
-
-           
-                    movie_name=request.session.get('movie_name')
+                    id=request.session.get('movie_id')
                     theater=request.session.get('theater')
-                    request.session.get('date')
+                    date=request.session.get('date')
                     time=request.session.get('time')
                     seatselected=request.session.get('seatselected')
                     price=request.session.get('price')
-                    date=request.session.get('date')
-                    print(movie_name,user)
-                    movie_id=movie.objects.get(movie_name=movie_name)
-                    print(movie_id,movie_name)
-                    movie_booking=booking.objects.create(user=user,movie=movie_id,all_seat=seatselected,price=price,time=time,date=date,theater=theater)
-                    movie_booking.save()
-                    return render(request,"movies/ticket.html",{
-                        "movie_name":movie_name,
-                        "theater":theater,
-                        "date":date,
-                        "time":time,
-                        "seatselected":seatselected,
-                        "price":price,
-                        "history":"show history"
-                        
-                    })
+                    movie_name=request.session.get('movie_name')
+
+                    already_booked=booking.get_movie(id,theater,date,time)
+                   
+                    if already_booked:
+                            print("true")
+                            return render(request,"movies/ticket.html",{
+                                    "movie_name":movie_name,
+                                    "theater":theater,
+                                    "date":date,
+                                    "time":time,
+                                    "seatselected":seatselected,
+                                    "price":price,
+                                    "history":"show history"
+                                    
+                                })
+            
+
+                    else:
+
+          
+                            movie_id=movie.objects.get(movie_name=movie_name)
+                            print(movie_id,movie_name)
+                            movie_booking=booking.objects.create(user=user,movie=movie_id,all_seat=seatselected,price=price,time=time,date=date,theater=theater)
+                            movie_booking.save()
+                            return render(request,"movies/ticket.html",{
+                                "movie_name":movie_name,
+                                "theater":theater,
+                                "date":date,
+                                "time":time,
+                                "seatselected":seatselected,
+                                "price":price,
+                                "history":"show history"
+                                
+                            })
 
 
 def cancel(request):

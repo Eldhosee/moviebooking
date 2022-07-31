@@ -6,7 +6,109 @@
 {% endblock link %}
 {% block content %}
    <body> 
-{%include 'movies/navbar.html'%}
+<!-- Navbar -->
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-transparent ">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        <img
+          src="https://i.ibb.co/RyQ1tHX/mb.png"
+          height="30"
+          width='55'
+          alt="MDB Logo"
+          loading="lazy"
+        />
+      </a>
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       
+        {% if not request.session.user %}
+        <a class="btn btn-danger btn-rounded me-3" class="nav-link active" aria-current="page" > you are not logged in</a>
+        {% else %}
+        <a class="btn btn-success btn-rounded me-3" class="nav-link active" aria-current="page" >you are  logged in</a>
+
+        {% endif %}
+        <a class="btn btn-secondary btn-rounded me-3" class="nav-link active" aria-current="page" href="{%url 'homepage'%}">Home</a>
+       
+      </ul>
+      <!-- Left links -->
+    </div>
+    <!-- Collapsible wrapper -->
+
+    <!-- Right elements -->
+    <div class="d-flex align-items-center">
+      <!-- Icon -->
+      
+
+      <!-- Notifications -->
+      <div class="dropdown">
+        <a
+          class="text-reset me-3 dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          
+        </a>
+        
+      </div>
+      <!-- Avatar -->
+      <div class="dropdown">
+        <a
+          class="dropdown-toggle d-flex align-items-center hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuAvatar"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3" style="width: 40px; "
+        alt="Avatar" />
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuAvatar"
+        >
+          
+          <li>
+            {% if  request.session.user %}
+            <a class="dropdown-item" href="{%url 'history'%}">Booking History</a>
+            {%endif%}
+          </li>
+          <li>
+            {% if not request.session.user %}
+        <a class="btn btn-danger btn-rounded me-3" class="nav-link active" aria-current="page" href="{%url 'login'%}">login</a>
+        {% else %}
+        <a class="btn btn-secondary btn-rounded me-3" class="nav-link active" aria-current="page" href="{%url 'logout'%}">logout</a>
+
+        {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Right elements -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
  
 
    <!-- login card -->
@@ -16,9 +118,11 @@
    <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 mx-auto">
     
 <!-- Default form login -->
+{% if message %}
 <div class="alert alert-danger" role="alert">
   {{message}}
 </div>
+{% endif %}
 <form method ='post' class="text-center border border-light  p-5" action="{%url 'login'%}">
   {% csrf_token %}
   <p class="h4 mb-4">Sign in</p>
@@ -45,6 +149,7 @@
 
 </div>
 </div>
+
 </div>
 
 </body>
