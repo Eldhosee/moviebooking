@@ -1,7 +1,7 @@
 {% extends 'movies/base.html' %}
 {% load static %}
 {% block link %}
-
+<link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
 <link  href={% static 'movies/register..css' %} rel="stylesheet">
 {% endblock link %}
 {% block content %}
@@ -20,7 +20,7 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <i class="fas fa-bars"></i>
+      <i class="fas fa-bars" style="color:#fff;" ></i>
     </button>
 
     <!-- Collapsible wrapper -->
@@ -126,7 +126,7 @@
 {% endif %}
 <form method='post' action="{%url 'register'%}" class="text-center border border-light  p-5" action="#!">
   {% csrf_token %}
-  <p class="h4 mb-4">Register</p>
+  <p class="h4 mb-4" style="color:white;font-family: 'Graduate';">Register</p>
 
   <!-- Email -->
   <input type="text" class="form-control mb-4" placeholder="username" name="username">

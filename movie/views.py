@@ -63,21 +63,27 @@ def register(request):
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
-        if password != confirmation:
-            return render(request, "movies/register.html", {
-                "message": "Passwords must match."
-            })
+        if username and email and password and confirmation:
 
-        # Attempt to create new user
-        try:
-            user = User.objects.create_user(username, email, password)
-            user.save()
-        except IntegrityError:
-            return render(request, "movies/register.html", {
-                "message": "Username already taken."
-            })
+            if password != confirmation:
+                return render(request, "movies/register.html", {
+                    "message": "Passwords must match."
+                })
 
-        return HttpResponseRedirect(reverse("login"))
+            # Attempt to create new user
+            try:
+                user = User.objects.create_user(username, email, password)
+                user.save()
+            except IntegrityError:
+                return render(request, "movies/register.html", {
+                    "message": "Username already taken."
+                })
+
+            return HttpResponseRedirect(reverse("login"))
+        else:
+            return render(request, "movies/register.html", {
+                "message": "Enter the details."
+            })
     else:
         return render(request, "movies/register.html")
 
