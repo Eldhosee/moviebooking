@@ -90,9 +90,9 @@ def register(request):
 
 
 
-
+@login_required(login_url='login')
 def description(request,id):
-    # print(id)
+    
     movie_details=movie.get_movies(id)
     
     return render(request,"movies/description.html",{
@@ -273,8 +273,8 @@ def history(request):
     user=request.user
     try: 
         User.objects.get(username=user)
-        history=list(booking.objects.filter(user=user).reverse())
-        
+        history=list(booking.objects.filter(user=user))
+        history.reverse()
         return render(request,"movies/history.html",{
             "history":history
         })

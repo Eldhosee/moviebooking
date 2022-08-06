@@ -3,10 +3,12 @@
     margin-left: 35%;
 
 }
-form{
-    display:inline;
-  }
-  
+@media (max-width: 991px) {
+    .b1{
+    /* Margin to fix overlapping fixed navbar */
+    margin-left: 15%;
+}
+}
 
 .date{
     display:inline-flexbox;
